@@ -768,35 +768,29 @@
         }
         
         @media (max-width: 768px) {
-            .nav {
-                padding: 20px;
-            }
-            
-            .nav-menu {
-                display: none;
-            }
-            
-            .hero-title {
-                font-size: 60px;
-            }
-            
-            .hero-subtitle {
-                font-size: 14px;
-                letter-spacing: 4px;
-            }
-            
-            .showcase {
-                padding: 80px 0;
-            }
-            
-            .project-number {
-                font-size: 100px;
-            }
-            
-            .contact-info {
-                flex-direction: column;
-                gap: 30px;
-            }
+			    /* On cache les liens de texte mais on garde le menu visible pour le bouton */
+			    .nav-menu {
+			        display: flex !important; /* On force l'affichage */
+			        gap: 0;
+			    }
+			    
+			    /* On cache uniquement les liens (Projets, À propos, Contact) */
+			    .nav-menu li:not(:last-child) {
+			        display: none;
+			    }
+			
+			    /* On s'assure que le bouton de langue est bien visible */
+			    .lang-btn {
+			        display: block !important;
+			        border-color: var(--white);
+			    }
+			
+			    /* --- Désactiver le bandeau collant au défilement --- */
+			    /* On force la navigation à rester en haut et à ne pas changer de style */
+			    .nav.scrolled {
+			        display: none !important; /* Le bandeau disparaît complètement quand on descend */
+			    }
+			}
         }
 
 		.project-detail {
