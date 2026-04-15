@@ -1,0 +1,1594 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baptiste Linet | Architecte d'Intérieur</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            cursor: none;
+        }
+        
+        :root {
+            --papaya: #FF6900;
+            --papaya-light: #FF8533;
+            --black: #000000;
+            --dark: #0a0a0a;
+            --white: #FFFFFF;
+            --gray: #8a8a8a;
+        }
+        
+        /* Custom Cursor */
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--papaya);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            transition: all 0.1s ease;
+            z-index: 9999;
+            mix-blend-mode: difference;
+        }
+        
+        .cursor-follower {
+            width: 8px;
+            height: 8px;
+            background: var(--papaya);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            z-index: 9998;
+        }
+        
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: var(--black);
+            color: var(--white);
+            overflow-x: hidden;
+            cursor: none;
+        }
+        
+       /* Navigation */
+        .nav {
+            position: fixed;
+            width: 100%;
+            padding: 30px 60px;
+            z-index: 1000;
+            mix-blend-mode: difference;
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        
+        .nav.scrolled {
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 20px 60px;
+            mix-blend-mode: normal;
+        }
+        
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 24px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            color: var(--white);
+            text-decoration: none;
+        }
+        
+        .nav-menu {
+            display: flex;
+            gap: 50px;
+            list-style: none;
+            align-items: center;
+        }
+        
+        .nav-menu a {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-menu a::before {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--papaya);
+            transition: width 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        
+        .nav-menu a:hover::before {
+            width: 100%;
+        }
+        
+        .lang-btn {
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--white);
+            background: transparent;
+            color: var(--white);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: none;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .lang-btn:hover {
+            color: var(--black);
+            border-color: var(--papaya);
+        }
+        
+        .lang-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--papaya);
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+        
+        .lang-btn:hover::before {
+            left: 0;
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: var(--black);
+        }
+        
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background: radial-gradient(circle at 20% 50%, var(--papaya) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, var(--papaya-light) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 20%, var(--papaya) 0%, transparent 50%);
+            opacity: 0.05;
+            animation: float 20s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(-20px, -20px) rotate(120deg); }
+            66% { transform: translate(20px, -10px) rotate(240deg); }
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            max-width: 1200px;
+            padding: 0 60px;
+        }
+        
+        .hero-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(60px, 10vw, 140px);
+            font-weight: 900;
+            letter-spacing: -2px;
+            line-height: 0.9;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .hero-title .line {
+            display: block;
+            overflow: hidden;
+        }
+        
+        .hero-title .line span {
+            display: inline-block;
+            animation: slideUp 1s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+            animation-delay: 0.2s;
+            opacity: 0;
+            transform: translateY(100%);
+        }
+        
+        .hero-title .line:nth-child(2) span {
+            animation-delay: 0.4s;
+        }
+        
+        @keyframes slideUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .hero-subtitle {
+            font-size: 18px;
+            font-weight: 500;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            color: var(--papaya);
+            margin-bottom: 50px;
+            opacity: 0;
+            animation: fadeIn 1s ease forwards;
+            animation-delay: 0.8s;
+        }
+        
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+        
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 20px;
+            padding: 20px 60px;
+            background: transparent;
+            border: 1px solid var(--papaya);
+            color: var(--papaya);
+            text-decoration: none;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            opacity: 0;
+            animation: fadeIn 1s ease forwards;
+            animation-delay: 1s;
+        }
+        
+        .hero-cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--papaya);
+            transition: left 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            z-index: -1;
+        }
+        
+        .hero-cta:hover {
+            color: var(--black);
+        }
+        
+        .hero-cta:hover::before {
+            left: 0;
+        }
+        
+        .hero-cta span {
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+        
+        .hero-cta:hover span {
+            transform: translateX(10px);
+        }
+        
+        /* Projects Showcase */
+        .showcase {
+            padding: 150px 0;
+            background: var(--dark);
+        }
+        
+        .showcase-header {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 0 60px;
+            margin-bottom: 100px;
+        }
+        
+        .showcase-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(40px, 5vw, 80px);
+            font-weight: 900;
+            letter-spacing: -1px;
+            margin-bottom: 20px;
+        }
+        
+        .showcase-subtitle {
+            font-size: 18px;
+            color: var(--gray);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        
+        .projects-container {
+            position: relative;
+        }
+        
+        .project {
+            display: flex;
+            align-items: center;
+            min-height: 100vh;
+            padding: 100px 60px;
+            position: relative;
+        }
+        
+        .project:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+        
+        .project-content {
+            flex: 1;
+            max-width: 600px;
+            padding: 0 60px;
+        }
+        
+        .project-number {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 200px;
+            font-weight: 900;
+            color: var(--papaya);
+            opacity: 0.1;
+            position: absolute;
+            top: 50px;
+            left: 60px;
+            line-height: 1;
+        }
+        
+        .project:nth-child(even) .project-number {
+            left: auto;
+            right: 60px;
+        }
+        
+        .project-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(40px, 4vw, 60px);
+            font-weight: 800;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .project-category {
+            display: inline-block;
+            padding: 5px 15px;
+            background: var(--papaya);
+            color: var(--black);
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+        }
+        
+        .project-description {
+            font-size: 20px;
+            line-height: 1.6;
+            color: var(--gray);
+            margin-bottom: 40px;
+        }
+        
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            color: var(--white);
+            text-decoration: none;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .project-link::after {
+            content: '→';
+            font-size: 20px;
+            transition: transform 0.3s ease;
+        }
+        
+        .project-link:hover {
+            color: var(--papaya);
+        }
+        
+        .project-link:hover::after {
+            transform: translateX(5px);
+        }
+        
+        .project-image {
+            flex: 1;
+            position: relative;
+            height: 600px;
+            overflow: hidden;
+        }
+        
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        
+        .project:hover .project-image img {
+            transform: scale(1.05);
+        }
+        
+        .project-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--papaya), transparent);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            z-index: 1;
+            mix-blend-mode: multiply;
+        }
+        
+        .project:hover .project-image::before {
+            opacity: 0.3;
+        }
+        
+        /* About Section */
+        .about {
+            padding: 150px 60px;
+            background: var(--white);
+            color: var(--black);
+        }
+        
+        .about-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 100px;
+            align-items: center;
+        }
+        
+        .about-text h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(40px, 4vw, 60px);
+            font-weight: 900;
+            margin-bottom: 30px;
+            color: var(--black);
+        }
+        
+        .about-text .highlight {
+            color: var(--papaya);
+        }
+        
+        .about-text p {
+            font-size: 20px;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            color: #333;
+        }
+        
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            margin-top: 60px;
+        }
+        
+        .stat {
+            border-left: 3px solid var(--papaya);
+            padding-left: 20px;
+        }
+        
+        .stat-number {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 48px;
+            font-weight: 900;
+            color: var(--papaya);
+            line-height: 1;
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gray);
+            margin-top: 10px;
+        }
+        
+        .skills {
+            display: grid;
+            gap: 30px;
+        }
+        
+        .skill-category {
+            padding: 40px;
+            background: var(--black);
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        
+        .skill-category:hover {
+            transform: translateY(-5px);
+        }
+        
+        .skill-category::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--papaya);
+        }
+        
+        .skill-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .skill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .skill-tag {
+            padding: 8px 16px;
+            background: rgba(255, 105, 0, 0.1);
+            border: 1px solid var(--papaya);
+            color: var(--papaya);
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+        
+        /* Contact Section */
+        .contact {
+            padding: 150px 60px;
+            background: var(--papaya);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .contact::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            top: -250px;
+            right: -250px;
+        }
+        
+        .contact-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .contact h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(40px, 5vw, 80px);
+            font-weight: 900;
+            color: var(--white);
+            margin-bottom: 30px;
+        }
+        
+        .contact-subtitle {
+            font-size: 24px;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 60px;
+        }
+        
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 80px;
+            flex-wrap: wrap;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .contact-item a {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: opacity 0.3s ease;
+        }
+        
+        .contact-item a:hover {
+            opacity: 0.8;
+        }
+        
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+        
+        /* Footer */
+        footer {
+            padding: 40px 60px;
+            background: var(--black);
+            text-align: center;
+            border-top: 1px solid #222;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .footer-text {
+            font-size: 14px;
+            color: var(--gray);
+            letter-spacing: 1px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .social-links a {
+            color: var(--gray);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            color: var(--papaya);
+        }
+        
+        /* Loading Animation */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--black);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+        
+        .loader.loaded {
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        .loader-text {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 60px;
+            font-weight: 900;
+            color: var(--papaya);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .loader-text::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 105, 0, 0.4), transparent);
+            animation: loading 2s linear infinite;
+        }
+        
+        @keyframes loading {
+            to { left: 100%; }
+        }
+        
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .project {
+                flex-direction: column !important;
+                padding: 80px 40px;
+            }
+            
+            .project-content {
+                max-width: 100%;
+                padding: 0;
+                margin-bottom: 40px;
+            }
+            
+            .project-image {
+                width: 100%;
+                height: 400px;
+            }
+            
+            .about-container {
+                grid-template-columns: 1fr;
+                gap: 60px;
+            }
+        }
+        
+		@media (max-width: 768px) {
+				.nav { padding: 20px; }
+				
+				/* On affiche la liste uniquement pour le bouton de langue */
+				.nav-menu { display: flex !important; gap: 0; }
+				.nav-menu li:not(:last-child) { display: none; } /* Cache les liens textes */
+				.lang-btn { display: block !important; }
+
+				.hero-title { font-size: 60px; }
+				.project-number { font-size: 100px; }
+
+				/* --- CORRECTION DÉTAILS PROJET --- */
+				.detail-content { padding: 40px 20px; }
+				
+				/* On passe en colonne : Texte en haut, Specs en dessous */
+				.detail-grid { 
+					display: flex; 
+					flex-direction: column; 
+					gap: 40px; 
+				}
+				.detail-text { max-width: 100%; }
+
+				/* Les 3 images en bas s'empilent pour être plus grandes */
+				.detail-gallery { 
+					grid-template-columns: 1fr; 
+					gap: 20px; 
+				}
+
+				.detail-close { right: 20px; top: 20px; width: 45px; height: 45px; }
+				.detail-hero-content { left: 20px; bottom: 30px; }
+        }
+
+		.project-detail {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100vh;
+			background: var(--black);
+			z-index: 9997;
+			overflow-y: auto;
+			opacity: 0;
+			visibility: hidden;
+			transition: opacity 0.5s ease, visibility 0.5s ease;
+		}
+
+		.project-detail.active {
+			opacity: 1;
+			visibility: visible;
+		}
+
+		.detail-close {
+			position: fixed;
+			top: 30px;
+			right: 60px;
+			width: 50px;
+			height: 50px;
+			background: var(--papaya);
+			border: none;
+			color: var(--white);
+			font-size: 20px;
+			cursor: none;
+			z-index: 10000;
+			transition: transform 0.3s ease;
+		}
+
+		.detail-close:hover {
+			transform: rotate(90deg);
+		}
+
+		.detail-hero {
+			height: 70vh;
+			position: relative;
+			overflow: hidden;
+		}
+
+		.detail-hero img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
+
+		.detail-hero-content {
+			position: absolute;
+			bottom: 60px;
+			left: 60px;
+			z-index: 10;
+		}
+
+		.detail-title {
+			font-family: 'Orbitron', sans-serif;
+			font-size: clamp(40px, 6vw, 80px);
+			font-weight: 900;
+			color: var(--white);
+			margin-bottom: 20px;
+		}
+
+		.detail-category {
+			display: inline-block;
+			padding: 10px 20px;
+			background: var(--papaya);
+			color: var(--black);
+			font-size: 14px;
+			font-weight: 700;
+			letter-spacing: 2px;
+			text-transform: uppercase;
+		}
+
+		.detail-content {
+			max-width: 1400px;
+			margin: 0 auto;
+			padding: 100px 60px;
+		}
+
+		.detail-intro {
+			font-size: 28px;
+			line-height: 1.6;
+			color: var(--gray);
+			margin-bottom: 80px;
+			text-align: center;
+		}
+
+		.detail-grid {
+			display: grid;
+			grid-template-columns: 2fr 1fr;
+			gap: 80px;
+			margin-bottom: 100px;
+		}
+
+		.detail-text h3 {
+			font-family: 'Orbitron', sans-serif;
+			font-size: 32px;
+			font-weight: 700;
+			margin-bottom: 30px;
+			color: var(--papaya);
+		}
+
+		.detail-text p {
+			font-size: 18px;
+			line-height: 1.8;
+			color: var(--gray);
+			margin-bottom: 20px;
+		}
+
+		.detail-specs {
+			background: rgba(255, 105, 0, 0.05);
+			padding: 40px;
+			border-left: 3px solid var(--papaya);
+		}
+
+		.spec-item {
+			display: flex;
+			flex-direction: column;
+			gap: 10px;
+			margin-bottom: 30px;
+		}
+
+		.spec-label {
+			font-size: 12px;
+			font-weight: 600;
+			letter-spacing: 2px;
+			text-transform: uppercase;
+			color: var(--gray);
+		}
+
+		.spec-value {
+			font-family: 'Orbitron', sans-serif;
+			font-size: 20px;
+			font-weight: 700;
+			color: var(--white);
+		}
+
+		.detail-gallery {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			gap: 30px;
+		}
+
+		.gallery-item {
+			aspect-ratio: 1;
+			overflow: hidden;
+		}
+
+		.gallery-item img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			transition: transform 0.5s ease;
+		}
+
+		.gallery-item:hover img {
+			transform: scale(1.1);
+		}
+    </style>
+</head>
+<body>
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+    
+    <!-- Loader -->
+    <div class="loader" id="loader">
+        <div class="loader-text">BAPT.</div>
+    </div>
+    
+    <!-- Navigation -->
+    <nav class="nav" id="nav">
+        <div class="nav-content">
+            <a href="#" class="logo">BAPT.</a>
+            <ul class="nav-menu">
+                <li><a href="#projects">Projets</a></li>
+                <li><a data-i18n="contact1"href="#about">À propos</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><button class="lang-btn" onclick="toggleLang()">EN</button></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">
+                <div class="line"><span>BAPTISTE</span></div>
+                <div class="line"><span>LINET</span></div>
+            </h1>
+            <p class="hero-subtitle">Architecte d'Intérieur</p>
+            <a href="#projects" class="hero-cta">
+                Explorer les projets
+                <span>→</span>
+            </a>
+        </div>
+    </section>
+    
+    <!-- Projects Showcase -->
+    <section class="showcase" id="projects">
+        <div class="showcase-header">
+            <h2 class="showcase-title">Projets Sélectionnés</h2>
+            <p class="showcase-subtitle">Créer des espaces uniques et immersifs</p>
+        </div>
+        
+        <div class="projects-container">
+            <!-- Project 1: Vespasian IX -->
+            <article class="project" onclick="openProject('vespasian')">
+                <div class="project-number">01</div>
+                <div class="project-content">
+                    <span class="project-category">Design Naval</span>
+                    <h3 class="project-title">VESPASIAN IX</h3>
+                    <p data-i18n="versapiantxt" class="project-description">
+                        Projet architectural et scénographique conçu autour de l'identité d'un bateau. 
+                        Une approche résolument moderne où minimalisme et fluidité des formes créent 
+                        une expérience immersive entre mer et architecture.
+                    </p>
+                    <a href="#" class="project-link" onclick="openProject('vespasian'); return false;">Découvrir le projet</a>
+                </div>
+                <div class="project-image">
+					<img src="images/Versapian IX/versapiangif.gif" alt="Versapian IX" style="width:110%; height:110%; object-fit:cover;">
+                </div>
+            </article>
+		
+            
+            <!-- Project 2: Salle de Cinéma -->
+            <article class="project" onclick="openProject('cinema')">
+                <div class="project-number">02</div>
+                <div class="project-content">
+                    <span class="project-category">Espace Immersif</span>
+                    <h3 class="project-title">Salle de Cinéma Privée</h3>
+                    <p data-i18n="cinematxt" class="project-description" id="projet2">
+                        Conception d'une salle de cinéma privée avec système Dolby Atmos 9.1.6. 
+                        Traitement acoustique Texaa et dalles LED latérales pour une immersion totale. 
+                        L'architecture technique au service de l'émotion pure.
+                    </p>
+                    <a href="#" class="project-link" onclick="openProject('cinema'); return false;">Découvrir le projet</a>
+                </div>
+                <div class="project-image">
+                    <img src="images/cinema/vuegenerale.jpg" alt="vuegenerale">
+                </div>
+            </article>
+            
+            <!-- Project 3: Maison Biarritz -->
+            <article class="project" onclick="openProject('biarritz')">
+                <div class="project-number">03</div>
+                <div class="project-content">
+                    <span class="project-category">Rénovation Premium</span>
+                    <h3 class="project-title">Maison Biarritz</h3>
+                    <p data-i18n="Biarritztxt" class="project-description">
+                        Rénovation complète d'une maison de 250m² avec extension. 
+                        Fusion entre tradition basque et modernité, avec des références subtiles 
+                        à l'océan intégrées dans chaque élément de design.
+                    </p>
+                    <a href="#" class="project-link" onclick="openProject('biarritz'); return false;">Découvrir le projet</a>
+                </div>
+                <div class="project-image">
+                    <img src="images/Biarritz/vueext.jpg" alt="vueext">
+                </div>
+            </article>
+        </div>
+    </section>
+	
+	<!-- Project Detail Pages -->
+    <!-- Vespasian IX Detail -->
+    <div class="project-detail" id="vespasian-detail">
+        <button class="detail-close" onclick="closeProject('vespasian')">✕</button>
+        <div class="detail-hero">
+            <img src="images/Versapian IX/genjour.jpg" alt="genjour">
+            <div class="detail-hero-content">
+                <h2 class="detail-title">VESPASIAN IX</h2>
+                <span class="detail-category" data-fr="Design Naval" data-en="Naval Design">Design Naval</span>
+            </div>
+        </div>
+        <div class="detail-content">
+            <p class="detail-intro" data-fr="Une approche résolument moderne où le minimalisme et la fluidité des formes renforcent l'expérience immersive." data-en="A resolutely modern approach where minimalism and fluidity of forms enhance the immersive experience.">
+                Une approche résolument moderne où le minimalisme et la fluidité des formes renforcent l'expérience immersive.
+            </p>
+            <div class="detail-grid">
+                <div class="detail-text">
+                    <h3 data-fr="Concept" data-en="Concept">Concept</h3>
+                    <p data-fr="Vespasian IX est un projet architectural et scénographique conçu autour de l'identité d'un bateau. Sa silhouette élancée et ses lignes épurées traduisent une approche moderne où la fluidité renforce l'expérience immersive." data-en="Vespasian IX is an architectural and scenographic project designed around the identity of a boat. Its slender silhouette and clean lines translate a modern approach where fluidity enhances the immersive experience.">
+                        Vespasian IX est un projet architectural et scénographique conçu autour de l'identité d'un bateau. Sa silhouette élancée et ses lignes épurées traduisent une approche moderne où la fluidité renforce l'expérience immersive.
+                    </p>
+                    <p data-fr="Les espaces alternent entre vues panoramiques ouvertes et séquences plus intimistes, recréant la sensation de voyage et d'évasion. L'ensemble propose une vision contemporaine du bateau comme lieu de vie et de contemplation." data-en="The spaces alternate between open panoramic views and more intimate sequences, recreating the sensation of travel and escape. The whole offers a contemporary vision of the boat as a place of life and contemplation.">
+                        Les espaces alternent entre vues panoramiques ouvertes et séquences plus intimistes, recréant la sensation de voyage et d'évasion. L'ensemble propose une vision contemporaine du bateau comme lieu de vie et de contemplation.
+                    </p>
+                </div>
+                <div class="detail-specs">
+                    <div class="spec-item">
+                        <span class="spec-label" data-fr="Surface" data-en="Area">Surface</span>
+                        <span class="spec-value">450m²</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label" data-fr="Année" data-en="Year">Année</span>
+                        <span class="spec-value">2024</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label" data-fr="Logiciels" data-en="Software">Logiciels</span>
+                        <span class="spec-value">Archicad, V-Ray, Photoshop</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label" data-fr="Type" data-en="Type">Type</span>
+                        <span class="spec-value" data-fr="Projet conceptuel" data-en="Conceptual project">Projet conceptuel</span>
+                    </div>
+                </div>
+            </div>
+            <div class="detail-gallery">
+                <div class="gallery-item">
+                    <img src="images/Versapian IX/pontbas.jpg" alt="pontvubas">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/Versapian IX/portraitvue.jpg" alt="portraitvue">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/Versapian IX/ponthaut.jpg" alt="pontvuhaut">
+                </div>
+            </div>
+        </div>
+    </div>
+	
+    <!-- Cinema Detail -->
+    <div class="project-detail" id="cinema-detail">
+        <button class="detail-close" onclick="closeProject('cinema')">✕</button>
+        <div class="detail-hero">
+            <img src="images/cinema/vueecran.jpg"" alt="vuegenerale">
+            <div class="detail-hero-content">
+                <h2 class="detail-title" data-fr="Salle de Cinéma Privée" data-en="Private Cinema Room">Salle de Cinéma Privée</h2>
+                <span class="detail-category" data-fr="Espace Immersif" data-en="Immersive Space">Espace Immersif</span>
+            </div>
+        </div>
+        <div class="detail-content">
+            <p class="detail-intro" data-fr="Une expérience cinématographique haut de gamme avec une attention particulière portée à l'acoustique et à la spatialisation sonore." data-en="A high-end cinematic experience with particular attention paid to acoustics and sound spatialization.">
+                Une expérience cinématographique haut de gamme avec une attention particulière portée à l'acoustique et à la spatialisation sonore.
+            </p>
+            <div class="detail-grid">
+                <div class="detail-text">
+                    <h3 data-fr="Immersion Totale" data-en="Total Immersion">Immersion Totale</h3>
+                    <p data-fr="Salle de cinéma privée conçue dans un but immersif. L'atmosphère enveloppante avec canapés en gradins, panneaux muraux rétroéclairés et bandes lumineuses au sol créent une ambiance digne d'une vraie salle obscure." data-en="Private cinema room designed for immersive purposes. The enveloping atmosphere with tiered sofas, backlit wall panels and floor light strips create an atmosphere worthy of a real cinema.">
+                        Salle de cinéma privée conçue dans un but immersif. L'atmosphère enveloppante avec canapés en gradins, panneaux muraux rétroéclairés et bandes lumineuses au sol créent une ambiance digne d'une vraie salle obscure.
+                    </p>
+                    <p data-fr="Le système Dolby Atmos 9.1.6 piloté par un processeur Trinnov Altitude16 permet une précision de placement sonore exceptionnelle. Les matériaux acoustiques Texaa optimisent l'intelligibilité des dialogues tout en maîtrisant les réverbérations." data-en="The Dolby Atmos 9.1.6 system driven by a Trinnov Altitude16 processor allows exceptional sound placement precision. Texaa acoustic materials optimize dialogue intelligibility while controlling reverberations.">
+                        Le système Dolby Atmos 9.1.6 piloté par un processeur Trinnov Altitude16 permet une précision de placement sonore exceptionnelle. Les matériaux acoustiques Texaa optimisent l'intelligibilité des dialogues tout en maîtrisant les réverbérations.
+                    </p>
+                </div>
+                <div class="detail-specs">
+                    <div class="spec-item">
+                        <span class="spec-label" data-fr="Surface" data-en="Area">Surface</span>
+                        <span class="spec-value">15m²</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label" data-fr="Capacité" data-en="Capacity">Capacité</span>
+                        <span class="spec-value" data-fr="12 places" data-en="12 seats">12 places</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label" data-fr="Audio" data-en="Audio">Audio</span>
+                        <span class="spec-value">Dolby Atmos 9.1.6</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label" data-fr="Acoustique" data-en="Acoustics">Acoustique</span>
+                        <span class="spec-value">Texaa®</span>
+                    </div>
+                </div>
+            </div>
+            <div class="detail-gallery">
+                <div class="gallery-item">
+                    <img src="images/cinema/sono.jpg" alt="Sono">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/cinema/vuegenerale.jpg" alt="Vue écran"> 
+                </div>
+                <div class="gallery-item">
+                    <img src="images/cinema/texaa.jpg" alt="systeme">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Biarritz Detail -->
+    <div class="project-detail" id="biarritz-detail">
+        <button class="detail-close" onclick="closeProject('biarritz')">✕</button>
+        <div class="detail-hero">
+            <img src="images/Biarritz/salon.jpg" alt="salon">
+            <div class="detail-hero-content">
+                <h2 class="detail-title" data-fr="Maison Biarritz" data-en="Biarritz House">Maison Biarritz</h2>
+                <span class="detail-category" data-fr="Rénovation Premium" data-en="Premium Renovation">Rénovation Premium</span>
+            </div>
+        </div>
+        <div class="detail-content">
+            <p class="detail-intro" data-fr="Une maison de 250m² entièrement repensée, où tradition basque et modernité se rencontrent harmonieusement." data-en="A 250m² house completely redesigned, where Basque tradition and modernity meet harmoniously.">
+                Une maison de 250m² entièrement repensée, où tradition basque et modernité se rencontrent harmonieusement.
+            </p>
+            <div class="detail-grid">
+                <div class="detail-text">
+                    <h3 data-fr="Référence au Lieu" data-en="Reference to Place">Référence au Lieu</h3>
+                    <p data-fr="J'ai repensé architecturalement l'extérieur en simplifiant la structure à deux pans de toit, afin d'harmoniser la façade et la toiture. L'ensemble apporte davantage de cohérence, avec une toiture plus épurée et linéaire, tout en optimisant sa portée." data-en="I architecturally redesigned the exterior by simplifying the two-sloped roof structure to harmonize the facade and roof. The whole brings more coherence, with a cleaner and more linear roof, while optimizing its span.">
+                        J'ai repensé architecturalement l'extérieur en simplifiant la structure à deux pans de toit, afin d'harmoniser la façade et la toiture. L'ensemble apporte davantage de cohérence, avec une toiture plus épurée et linéaire, tout en optimisant sa portée.
+                    </p>
+                    <p data-fr="À l'intérieur, je me suis inspiré du lieu pour créer un effet 'Océan'. On retrouve notamment la planche de surf qui est à la fois esthétique mais aussi pratique car elle sert de prise de main au meuble. Les planches bois/verre donnent du dynamisme au meuble du salon avec cet effet vague." data-en="Inside, I was inspired by the place to create an 'Ocean' effect. We notably find the surfboard which is both aesthetic and practical as it serves as a handle for the furniture. The wood/glass boards give dynamism to the living room furniture with this wave effect.">
+                        À l'intérieur, je me suis inspiré du lieu pour créer un effet 'Océan'. On retrouve notamment la planche de surf qui est à la fois esthétique mais aussi pratique car elle sert de prise de main au meuble. Les planches bois/verre donnent du dynamisme au meuble du salon avec cet effet vague.
+                    </p>
+                </div>
+                <div class="detail-specs">
+                    <div class="spec-item">
+                        <span class="spec-label" data-fr="Surface totale" data-en="Total area">Surface totale</span>
+                        <span class="spec-value">250m²</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label" data-fr="Extension" data-en="Extension">Extension</span>
+                        <span class="spec-value">45m²</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label" data-fr="Durée travaux" data-en="Work duration">Durée travaux</span>
+                        <span class="spec-value" data-fr="8 mois" data-en="8 months">8 mois</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label" data-fr="Localisation" data-en="Location">Localisation</span>
+                        <span class="spec-value">Biarritz</span>
+                    </div>
+                </div>
+            </div>
+            <div class="detail-gallery">
+                <div class="gallery-item">
+                    <img src="images/Biarritz/fille.jpg" alt="Chambre Fille">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/Biarritz/dressing.jpg" alt="Dressing">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/Biarritz/master.jpg" alt="master">
+                </div>
+            </div>
+        </div>
+    </div>    
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="about-container">
+            <div class="about-text">
+                <h2>Créer des <span class="highlight">espaces uniques</span></h2>
+                <p data-i18n="about1">
+                    Je suis Baptiste Linet, 21 ans, étudiant en 5e année d'architecture d'intérieur. 
+                    Passionné par la création d'espaces qui allient esthétisme et fonctionnalité.
+                </p>
+                <p data-i18n-html="about2">
+                    Mon travail se concentre sur l'aménagement de l'espace et la mise en valeur des volumes, 
+                    avec une attention particulière à l'harmonie, la lumière et les proportions. 
+                </p>
+                <div class="about-stats">
+                    <div class="stat">
+                        <div class="stat-number">5</div>
+                        <div data-i18n="stat1"class="stat-label">Années d'études</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">20+</div>
+                        <div data-i18n="stat2" class="stat-label">Projets réalisés</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">3D</div>
+                        <div class="stat-label">Visualisation</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">9</div>
+                        <div data-i18n="stage" class="stat-label">mois de stage</div>
+                    </div>
+                </div>
+            </div>
+            <div class="skills">
+                <div class="skill-category">
+                    <h3 class="skill-title">Conception & Design</h3>
+                    <div class="skill-list">
+                        <span class="skill-tag">Archicad</span>
+                        <span class="skill-tag">V-Ray</span>
+                        <span class="skill-tag">Twinmotion</span>
+                        <span class="skill-tag">Photoshop</span>
+                        <span class="skill-tag">InDesign</span>
+						<span class="skill-tag">Lightroom</span>
+						<span data-i18n="skills4"class="skill-tag">Intelligence Artificielle</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3 data-i18n="stat3" class="skill-title">Compétences clés</h3>
+                    <div class="skill-list">
+                        <span data-i18n="skills1"class="skill-tag">Créativité</span>
+                        <span data-i18n="skills2"class="skill-tag">Adaptabilité</span>
+                        <span class="skill-tag"> Communication</span>
+                        <span data-i18n="skills3"class="skill-tag">Vision 3D</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="contact-container">
+            <h2>Créons ensemble</h2>
+            <p class="contact-subtitle">Prêt à donner vie à vos espaces</p>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-icon">✉</div>
+                    <a href="mailto:baptiste.linet@gmail.com">baptiste.linet@gmail.com</a>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">☎</div>
+                    <a href="tel:+33688137036">06 88 13 70 36</a>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">📍</div>
+                    <span style="color: white;">Denicé, France</span> 
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <p class="footer-text">© 2026 Baptiste Linet - Tous droits réservés</p>
+            <div class="social-links">
+                <a href="https://www.instagram.com/baptiste.linet/" target="_blank">Instagram</a>
+                <a href="https://www.linkedin.com/in/baptiste-linet/" target="_blank">LinkedIn</a>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+
+		function openProject(project) {
+			document.getElementById(project + '-detail').classList.add('active');
+			document.body.style.overflow = 'hidden';
+		}
+
+		function closeProject(project) {
+			document.getElementById(project + '-detail').classList.remove('active');
+			document.body.style.overflow = 'auto';
+		}
+
+
+	
+        // Custom cursor
+        const cursor = document.querySelector('.cursor');
+        const follower = document.querySelector('.cursor-follower');
+        
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            
+            setTimeout(() => {
+                follower.style.left = e.clientX + 'px';
+                follower.style.top = e.clientY + 'px';
+            }, 100);
+        });
+        
+        // Cursor hover effects
+        const links = document.querySelectorAll('a, button');
+        links.forEach(link => {
+            link.addEventListener('mouseenter', () => {
+                cursor.style.transform = 'scale(2)';
+                follower.style.transform = 'scale(2)';
+            });
+            link.addEventListener('mouseleave', () => {
+                cursor.style.transform = 'scale(1)';
+                follower.style.transform = 'scale(1)';
+            });
+        });
+        
+        // Loader
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loader').classList.add('loaded');
+            }, 1500);
+        });
+        
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Navigation scroll effect
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('nav');
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 100) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+            
+            lastScroll = currentScroll;
+        });
+        
+        // Parallax effect on scroll
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallax = document.querySelector('.hero-bg');
+            if (parallax) {
+                parallax.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        });
+        
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        // Observe elements
+        document.querySelectorAll('.project, .skill-category').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(50px)';
+            el.style.transition = 'all 0.8s cubic-bezier(0.23, 1, 0.32, 1)';
+            observer.observe(el);
+        });
+        
+        // Language toggle
+        let currentLang = 'fr';
+        
+        function toggleLang() {
+            const btn = document.querySelector('.lang-btn');
+            currentLang = currentLang === 'fr' ? 'en' : 'fr';
+            btn.textContent = currentLang === 'fr' ? 'EN' : 'FR';
+            
+            // Add translations logic here
+            const translations = {
+                fr: {
+                    heroSubtitle: "Architecte d'Intérieur",
+                    heroCta: "Explorer les projets",
+                    showcaseTitle: "Projets Sélectionnés",
+                    showcaseSubtitle: "Créer des espaces uniques et immersifs",
+                    aboutTitle: "Créer des espaces uniques",
+                    contactTitle: "Créons ensemble",
+                    contactSubtitle: "Prêt à donner vie à vos espaces",
+					about1: "Je suis Baptiste Linet, 21 ans, étudiant en 4e année d'architecture d'intérieur. Passionné par la création d'espaces qui allient esthétisme et fonctionnalité.",
+					about2: "Mon travail se concentre sur l'aménagement de l'espace et la mise en valeur des volumes, avec une attention particulière à l'harmonie, la lumière et les proportions.",
+					stat1: "Années d'études",
+					stat2: "Projets réalisés",
+					stat3: "Compétences clés",
+					skills1: "Créativité",
+					skills2: "Adaptabilité",
+					skills3: "Vision 3D",
+					skills4: "Intelligence Artificielle",
+					contact1:"À propos",
+					versapiantxt:"Projet architectural et scénographique conçu autour de l'identité d'un bateau. Une approche résolument moderne où minimalisme et fluidité des formes créent une expérience immersive entre mer et architecture.",
+					Biarritztxt:"Rénovation complète d'une maison de 250m² avec extension. Fusion entre tradition basque et modernité, avec des références subtiles à l'océan intégrées dans chaque élément de design.",
+					cinematxt:"Conception d'une salle de cinéma privée avec système Dolby Atmos 9.1.6. Traitement acoustique Texaa et dalles LED latérales pour une immersion totale. L'architecture technique au service de l'émotion pure.",
+					stage:"mois de stage",
+                },
+                en: {
+                    heroSubtitle: "Interior Designer",
+                    heroCta: "Explore projects",
+                    showcaseTitle: "Selected Projects",
+                    showcaseSubtitle: "Creating unique and immersive spaces",
+                    aboutTitle: "Creating unique spaces",
+                    contactTitle: "Let's create together",
+                    contactSubtitle: "Ready to bring your spaces to life",
+					about1: "I am Baptiste Linet, 21 years old, a 4th-year interior architecture student. Passionate about creating spaces that combine aesthetics and functionality.",
+					about2: "My work focuses on the layout of space and the enhancement of volumes, with particular attention to harmony, light and proportions.<br> <br>",
+					stat1: "Years of study",
+					stat2: "Completed projects",
+					stat3: "Key skills",
+					skills1: "Creatif",
+					skills2: "Adaptability",
+					skills3:"3D Vision",
+					skills4: "Artificial Intelligence",
+					contact1:"About me",
+					versapiantxt:"An architectural and scenographic project conceived around the identity of a boat. A modern approach where minimalism and fluid forms create an immersive experience between sea and architecture.",
+					Biarritztxt:"Complete renovation of a 250m² house with an extension. A fusion of Basque tradition and modernity, with subtle references to the ocean integrated into every design element.",
+					cinematxt:"Design of a private cinema room with a Dolby Atmos 9.1.6 system. Texaa acoustic treatment and side LED panels for total immersion. Technical architecture at the service of pure emotion.",
+					stage:"month of internship",
+				}
+            };
+            
+            // Update texts
+            document.querySelector('.hero-subtitle').textContent = translations[currentLang].heroSubtitle;
+            document.querySelector('.hero-cta').innerHTML = `${translations[currentLang].heroCta} <span>→</span>`;
+            document.querySelector('.showcase-title').textContent = translations[currentLang].showcaseTitle;
+            document.querySelector('.showcase-subtitle').textContent = translations[currentLang].showcaseSubtitle;
+			
+            
+            const aboutTitle = document.querySelector('.about h2');
+            if (currentLang === 'en') {
+                aboutTitle.innerHTML = 'Creating <span class="highlight">unique spaces</span>';
+            } else {
+                aboutTitle.innerHTML = 'Créer des <span class="highlight">espaces uniques</span>';
+            }
+            
+            document.querySelector('.contact h2').textContent = translations[currentLang].contactTitle;
+            document.querySelector('.contact-subtitle').textContent = translations[currentLang].contactSubtitle;
+			
+			
+			
+			document.querySelectorAll("[data-i18n]").forEach(el => {
+			  const key = el.getAttribute("data-i18n");
+			  el.textContent = translations[currentLang][key];
+			});	
+			
+			document.querySelectorAll("[data-i18n-html]").forEach(el => {
+				const key = el.getAttribute("data-i18n-html");
+				el.innerHTML = translations[currentLang][key];
+			});
+        }
+        
+
+		// Fermer le projet avec la touche Échap
+		document.addEventListener('keydown', (e) => {
+			if (e.key === 'Escape') {
+				const activeDetail = document.querySelector('.project-detail.active');
+				if (activeDetail) {
+					activeDetail.classList.remove('active');
+					document.body.style.overflow = 'auto';
+				}
+			}
+		});	
+			
+			
+			
+			
+        // Mobile menu toggle
+        function createMobileMenu() {
+            if (window.innerWidth <= 768) {
+                const nav = document.querySelector('.nav-content');
+                if (!document.querySelector('.menu-toggle')) {
+                    const menuToggle = document.createElement('button');
+                    menuToggle.className = 'menu-toggle';
+                    menuToggle.innerHTML = '<span></span><span></span><span></span>';
+                    menuToggle.style.cssText = `
+                        display: flex;
+                        flex-direction: column;
+                        gap: 4px;
+                        background: none;
+                        border: none;
+                        cursor: pointer;
+                        padding: 5px;
+                    `;
+                    
+                    const spans = menuToggle.querySelectorAll('span');
+                    spans.forEach(span => {
+                        span.style.cssText = `
+                            width: 25px;
+                            height: 2px;
+                            background: var(--white);
+                            transition: all 0.3s ease;
+                        `;
+                    });
+                    
+                    nav.appendChild(menuToggle);
+                    
+                    menuToggle.addEventListener('click', () => {
+                        const menu = document.querySelector('.nav-menu');
+                        menu.style.cssText = `
+                            position: fixed;
+                            top: 0;
+                            right: ${menu.style.right === '0px' ? '-100%' : '0'};
+                            width: 100%;
+                            height: 100vh;
+                            background: var(--black);
+                            flex-direction: column;
+                            justify-content: center;
+                            align-items: center;
+                            transition: right 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+                        `;
+                    });
+                }
+            }
+        }
+        
+
+    </script>
+</body>
+</html>
