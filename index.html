@@ -960,6 +960,59 @@
 		.gallery-item:hover img {
 			transform: scale(1.1);
 		}
+		@media (max-width: 768px) {
+		    /* --- Ajustements Généraux Mobile --- */
+		    .nav { padding: 20px; }
+		    .nav-menu { display: none; }
+		    .hero-title { font-size: 60px; }
+		    .hero-subtitle { font-size: 14px; letter-spacing: 4px; }
+		    .showcase { padding: 80px 0; }
+		    .project-number { font-size: 100px; }
+		    .contact-info { flex-direction: column; gap: 30px; }
+		
+		    /* --- Correction des Détails Projet (Mobile) --- */
+		    
+		    /* 1. On réduit les marges de la page pour gagner de la place */
+		    .detail-content {
+		        padding: 40px 20px; 
+		    }
+		
+		    /* 2. LE TRUC SUR LE CÔTÉ : On passe de 2 colonnes à 1 seule colonne. 
+		       Les infos techniques (specs) passeront automatiquement en dessous du texte. */
+		    .detail-grid {
+		        display: flex;
+		        flex-direction: column;
+		        gap: 40px; /* Espace entre le texte et les infos du dessous */
+		    }
+		
+		    /* 3. LE TEXTE : On enlève les contraintes de largeur pour qu'il respire */
+		    .detail-text {
+		        max-width: 100%;
+		    }
+		
+		    .detail-intro {
+		        font-size: 20px; /* Un peu plus petit pour mobile */
+		        margin-bottom: 40px;
+		    }
+		
+		    /* 4. LES 3 IMAGES EN BAS : On les passe sur une seule colonne. 
+		       Elles prendront toute la largeur de l'écran et seront donc bien plus grandes. */
+		    .detail-gallery {
+		        grid-template-columns: 1fr; 
+		        gap: 20px;
+		    }
+		    
+		    /* Ajustement du bouton de fermeture et du titre pour mobile */
+		    .detail-close {
+		        right: 20px;
+		        top: 20px;
+		    }
+		    
+		    .detail-hero-content {
+		        left: 20px;
+		        bottom: 30px;
+		    }
+		}
     </style>
 </head>
 <body>
