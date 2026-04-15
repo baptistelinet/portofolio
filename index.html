@@ -767,38 +767,8 @@
             }
         }
         
-		@media (max-width: 768px) {
-				.nav { padding: 20px; }
-				
-				/* On affiche la liste uniquement pour le bouton de langue */
-				.nav-menu { display: flex !important; gap: 0; }
-				.nav-menu li:not(:last-child) { display: none; } /* Cache les liens textes */
-				.lang-btn { display: block !important; }
-
-				.hero-title { font-size: 60px; }
-				.project-number { font-size: 100px; }
-
-				/* --- CORRECTION DÉTAILS PROJET --- */
-				.detail-content { padding: 40px 20px; }
-				
-				/* On passe en colonne : Texte en haut, Specs en dessous */
-				.detail-grid { 
-					display: flex; 
-					flex-direction: column; 
-					gap: 40px; 
-				}
-				.detail-text { max-width: 100%; }
-
-				/* Les 3 images en bas s'empilent pour être plus grandes */
-				.detail-gallery { 
-					grid-template-columns: 1fr; 
-					gap: 20px; 
-				}
-
-				.detail-close { right: 20px; top: 20px; width: 45px; height: 45px; }
-				.detail-hero-content { left: 20px; bottom: 30px; }
-        }
-
+			
+			
 		.project-detail {
 			position: fixed;
 			top: 0;
@@ -959,6 +929,65 @@
 
 		.gallery-item:hover img {
 			transform: scale(1.1);
+		}
+		
+		@media (max-width: 768px) {
+			/* 1. Bordures réduites (30px au lieu de 60px sur PC) */
+			.nav { padding: 20px 20px; }
+			.project { padding: 60px 20px !important; }
+			.showcase-header { padding: 0 20px; margin-bottom: 50px; }
+
+			.cursor, .cursor-follower { 
+                display: none !important; 
+            }
+            * { 
+                cursor: auto !important; /* On remet le pointeur par défaut du téléphone */
+            }
+			
+			/* 2. Menu : On garde seulement le bouton de langue */
+			.nav-menu { display: flex !important; gap: 0; }
+			.nav-menu li:not(:last-child) { display: none; }
+			.lang-btn { display: block !important; border-color: white; }
+
+			.hero-title { font-size: 60px; }
+			.project-number { font-size: 100px; }
+
+			/* 3. RETOUR DU MODE "EN LONG" POUR LES DÉTAILS */
+			.detail-content { padding: 40px 20px; }
+			
+			/* On force le texte et les specs à s'empiler verticalement */
+			.detail-grid { 
+				display: flex; 
+				flex-direction: column; 
+				gap: 40px; 
+			}
+			.detail-text { max-width: 100%; }
+
+			/* Les 3 images en bas s'empilent pour être bien grandes */
+			.detail-gallery { 
+				grid-template-columns: 1fr; 
+				gap: 20px; 
+			}
+
+			.detail-close { right: 20px; top: 20px; width: 45px; height: 45px; }
+			.detail-hero-content { left: 20px; bottom: 20px; }
+			/* --- SECTION À PROPOS (Mobile) --- */
+            .about { 
+                padding: 80px 30px !important; /* Bordure de 30px comme les projets */
+            }
+            .about-container { 
+                display: flex !important; 
+                flex-direction: column !important; /* Empile le texte et les compétences */
+                gap: 50px !important; 
+            }
+            .about-text h2 { font-size: 40px !important; }
+
+            /* On empile aussi les statistiques pour qu'elles respirent */
+            .about-stats { 
+                grid-template-columns: 1fr !important; 
+                gap: 30px !important; 
+            }
+            .stat-number { font-size: 40px !important; }
 		}
     </style>
 </head>
@@ -1169,7 +1198,7 @@
             </div>
             <div class="detail-gallery">
                 <div class="gallery-item">
-                    <img src="images/cinema/sono.jpg" alt="Sono">
+                    <img src="images/cinema/sono.png" alt="Sono">
                 </div>
                 <div class="gallery-item">
                     <img src="images/cinema/vuegenerale.jpg" alt="Vue écran"> 
